@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProductsProvider } from './contexts/ProductsContext';
+import { CartProvider } from './contexts/CartContext';
 import Login from './pages/Login';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
@@ -23,7 +24,11 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Layout>
-              <Dashboard />
+              <ProductsProvider>
+                <CartProvider>
+                  <Dashboard />
+                </CartProvider>
+              </ProductsProvider>
             </Layout>
           </ProtectedRoute>
         }
@@ -40,7 +45,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      {/* Add similar routes for customers, sales, inventory later */}
+      {/* Other routes later */}
       <Route path="*" element={<Navigate to={currentUser ? "/dashboard" : "/login"} />} />
     </Routes>
   );
