@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -57,6 +57,9 @@ const Login = () => {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
+        <p className="mt-4 text-center text-gray-600">
+          Don't have an account? <Link to="/register" className="text-blue-600 hover:underline">Sign Up</Link>
+        </p>
       </div>
     </div>
   );

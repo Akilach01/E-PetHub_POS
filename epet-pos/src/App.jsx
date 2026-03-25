@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProductsProvider } from './contexts/ProductsContext';
 import { CartProvider } from './contexts/CartContext';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
@@ -33,6 +34,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/register" element={currentUser ? <Navigate to="/dashboard" /> : <Register />} />
       <Route
         path="/products"
         element={
