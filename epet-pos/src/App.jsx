@@ -8,6 +8,8 @@ import Register from './pages/Register';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
+import { CustomersProvider } from './contexts/CustomersContext';
+import Customers from './pages/Customers';
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
@@ -47,6 +49,18 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/customers"
+        element={
+        <ProtectedRoute>
+         <Layout>
+          <CustomersProvider>
+           <Customers />
+          </CustomersProvider>
+        </Layout>
+        </ProtectedRoute>
+  }
+/>
       {/* Other routes later */}
       <Route path="*" element={<Navigate to={currentUser ? "/dashboard" : "/login"} />} />
     </Routes>
