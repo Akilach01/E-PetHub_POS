@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ProductsProvider } from './contexts/ProductsContext';
 import Login from './pages/Login';
 import Layout from './components/layout/Layout';
-import Dashboard from './pages/Dashboard'; // we'll create this next
+import Dashboard from './pages/Dashboard';
+import Products from './pages/Products';
 
-// Protected route wrapper
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
   return currentUser ? children : <Navigate to="/login" />;
@@ -27,7 +28,19 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      {/* Add more routes like /products, /customers, etc. with same pattern */}
+      <Route
+        path="/products"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <ProductsProvider>
+                <Products />
+              </ProductsProvider>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      {/* Add similar routes for customers, sales, inventory later */}
       <Route path="*" element={<Navigate to={currentUser ? "/dashboard" : "/login"} />} />
     </Routes>
   );
